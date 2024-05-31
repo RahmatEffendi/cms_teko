@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\MasterController;
+use App\Http\Controllers\Api\ProcessingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,20 @@ use App\Http\Controllers\AuthController;
 Route::post('v1/login', [AuthController::class, 'login'])->name('login');
 Route::post('v1/register', [AuthController::class, 'register'])->name('register');
 
-Route::middleware('auth:sanctum')->get('/v1/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/v1/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::middleware('auth:sanctum')->prefix('v1')->group(function(){
+    // user
+    Route::get('/user', function(Request $request) {
+        return $request->user();
+    });
+
+    // Master
+    Route::get('/master/packages', [MasterController::class, 'getMasterPackages']);
+
+    // Informations
+    Route::get('/jobs/get', [ProcessingController::class, 'get_information']);
+    Route::post('/jobs/create', [ProcessingController::class, 'post_information']);
 });
