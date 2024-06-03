@@ -25,7 +25,7 @@ Route::post('v1/register', [AuthController::class, 'register'])->name('register'
 // });
 
 // Master
-Route::get('/master/packages', [MasterController::class, 'getMasterPackages']);
+Route::get('v1/master/packages', [MasterController::class, 'getMasterPackages']);
 
 Route::middleware('auth:sanctum')->prefix('v1')->group(function(){
     // user
