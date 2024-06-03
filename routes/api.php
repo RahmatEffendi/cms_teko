@@ -24,14 +24,14 @@ Route::post('v1/register', [AuthController::class, 'register'])->name('register'
 //     return $request->user();
 // });
 
+// Master
+Route::get('/master/packages', [MasterController::class, 'getMasterPackages']);
+
 Route::middleware('auth:sanctum')->prefix('v1')->group(function(){
     // user
     Route::get('/user', function(Request $request) {
         return $request->user();
     });
-
-    // Master
-    Route::get('/master/packages', [MasterController::class, 'getMasterPackages']);
 
     // Informations
     Route::get('/jobs/get', [ProcessingController::class, 'get_information']);
